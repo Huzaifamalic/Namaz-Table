@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Namaz Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            margin: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: gray;
+            color: white;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color:gray;
+            color: white;
+            border-radius: 8px;
+        }
+        .link {
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+        }
+        input[type="checkbox"] {
+            transform: scale(1.2);
+        }
+        .reset-btn {
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="navbar">
+            <h2>نماز  کا ریکارڈ"- <span id="month-year"></span></h2>
+            <a class="link" href="./islamic.html" target="_blank">اسلامی سوالنامہ</a>
+        </div>
+        <table>
+            <tr>
+               <th>Date</th>
+               <th>فجر</th>
+               <th>ظہر</th>
+               <th>عصر</th>
+               <th>مغرب</th>
+               <th>عشاء</th>
+            </tr>
+            <tbody id="namaz-table"></tbody>
+        </table>
+        <button class="reset-btn" onclick="resetTracker()">Reset Tracker</button>
+    </div>
+    
+    <script>
+        let today = new Date();
+        let currentMonth = today.getMonth();
+        let currentYear = today.getFullYear();
+        let monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        document.getElementById("month-year").innerText = `${monthNames[currentMonth]} ${currentYear}`;
+        let daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+        let tableBody = document.getElementById("namaz-table");
+        
+        function loadTracker() {
+            let savedData = JSON.parse(localStorage.getItem("namazTracker")) || {};
+            for (let i = 1; i <= daysInMonth; i++) {
+                let formattedDate = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
+                let row = `<tr>
+                    <td>${formattedDate}</td>
+                    <td><input type="checkbox" data-date="${formattedDate}" data-namaz="Fajr" ${savedData[formattedDate]?.Fajr ? "checked" : ""}></td>
+                    <td><input type="checkbox" data-date="${formattedDate}" data-namaz="Dhuhr" ${savedData[formattedDate]?.Dhuhr ? "checked" : ""}></td>
+                    <td><input type="checkbox" data-date="${formattedDate}" data-namaz="Asr" ${savedData[formattedDate]?.Asr ? "checked" : ""}></td>
+                    <td><input type="checkbox" data-date="${formattedDate}" data-namaz="Maghrib" ${savedData[formattedDate]?.Maghrib ? "checked" : ""}></td>
+                    <td><input type="checkbox" data-date="${formattedDate}" data-namaz="Isha" ${savedData[formattedDate]?.Isha ? "checked" : ""}></td>
+                </tr>`;
+                tableBody.innerHTML += row;
+            }
+        }
+        
+        function saveTracker() {
+            let trackerData = {};
+            document.querySelectorAll("input[type='checkbox']").forEach(checkbox => {
+                let date = checkbox.getAttribute("data-date");
+                let namaz = checkbox.getAttribute("data-namaz");
+                if (!trackerData[date]) {
+                    trackerData[date] = {};
+                }
+                trackerData[date][namaz] = checkbox.checked;
+            });
+            localStorage.setItem("namazTracker", JSON.stringify(trackerData));
+        }
+        
+        function resetTracker() {
+            localStorage.removeItem("namazTracker");
+            location.reload();
+        }
+        
+        document.addEventListener("DOMContentLoaded", () => {
+            loadTracker();
+            document.addEventListener("change", saveTracker);
+        });
+    </script>
+</body>
+</html>

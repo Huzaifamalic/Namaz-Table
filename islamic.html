@@ -1,0 +1,169 @@
+
+
+
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اسلامی سوالنامہ</title>
+    <style>
+        body {
+            background-color: gray;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 16px;
+            color: #333;
+        }
+        fieldset {
+            margin-bottom: 16px;
+            border: none;
+        }
+        legend {
+            font-weight: bold;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-top: 8px;
+        }
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        a {
+            text-decoration: none;
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-top: 20px;
+            
+
+        
+        }
+    </style>
+</head>
+<body>
+   
+    <div class="container">
+        <div class="container-2">
+            <a href="./index.html" class="record-link">نماز کا ریکارڈ</a>
+        </div> 
+        <h2>اسلامی سوالنامہ</h2>
+        <form id="surveyForm">
+            <fieldset>
+                <legend>اتفاقی عمل کی کیفیت کیا ہے؟</legend>
+                <label><input type="radio" name="ittefaq" value="پہلے سے وعدہ"> پہلے سے وعدہ</label>
+                <label><input type="radio" name="ittefaq" value="5% فیصد سے زیادہ"> 5٪ فیصد سے زیادہ</label>
+                <label><input type="radio" name="ittefaq" value="اذکار منصوبہ موجود نہیں"> اذکار منصوبہ موجود نہیں</label>
+            </fieldset>
+            
+            <fieldset>
+                <legend>زندگی کے معمولات کیسے ہیں؟</legend>
+                <label><input type="checkbox" name="routine" value="روحانی جاری ہے"> روحانی جاری ہے</label>
+            </fieldset>
+            
+            <fieldset>
+                <legend>اجتماع میں شرکت</legend>
+                <label><input type="radio" name="ijtima" value="جی ہاں"> جی ہاں</label>
+                <label><input type="radio" name="ijtima" value="نہیں"> نہیں</label>
+            </fieldset>
+            
+            <fieldset>
+                <legend>دوران ماہ دعا و عبادات کی کیفیت</legend>
+                <label><input type="checkbox" name="ibadat" value="قرآن کی تلاوت"> قرآن کی تلاوت</label>
+                <label><input type="checkbox" name="ibadat" value="نماز کے خلاف رعایت"> نماز کے خلاف رعایت</label>
+                <label><input type="checkbox" name="ibadat" value="نصاب کی تکمیل"> نصاب کی تکمیل</label>
+            </fieldset>
+            
+            <fieldset>
+                <legend>ذاتی اصلاح کے لیے کون سا طریقہ کار اپنایا؟</legend>
+                <label><input type="checkbox" name="self_improvement" value="نماز و اذکار"> نماز و اذکار</label>
+                <label><input type="checkbox" name="self_improvement" value="معاشرتی معاملات کی بہتری"> معاشرتی معاملات کی بہتری</label>
+                <label><input type="checkbox" name="self_improvement" value="دعوت و تبلیغ"> دعوت و تبلیغ</label>
+            </fieldset>
+            
+            <fieldset>
+                <legend>مشکلات کے حوالے سے رہنمائی حاصل کرنا چاہتے ہیں؟</legend>
+                <label><input type="radio" name="mushkilat" value="جی ہاں"> جی ہاں</label>
+                <label><input type="radio" name="mushkilat" value="نہیں"> نہیں</label>
+            </fieldset>
+            
+            <fieldset>
+                <legend>اضافی رائے یا مشورہ</legend>
+                <textarea name="feedback" rows="4" placeholder="اپنی رائے لکھیں..."></textarea>
+            </fieldset>
+            
+            <button type="submit">فارم جمع کریں</button>
+        </form>
+    </div>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.getElementById("surveyForm");
+            
+            // Load saved data from localStorage
+            const savedData = JSON.parse(localStorage.getItem("surveyData")) || {};
+            Object.keys(savedData).forEach(key => {
+                const inputElements = form.elements[key];
+                if (inputElements) {
+                    if (inputElements.length) {
+                        Array.from(inputElements).forEach(input => {
+                            if (input.type === "checkbox" || input.type === "radio") {
+                                input.checked = savedData[key].includes(input.value);
+                            }
+                        });
+                    } else {
+                        inputElements.value = savedData[key];
+                    }
+                }
+            });
+            
+            // Save form data to localStorage
+            form.addEventListener("submit", function (e) {
+                e.preventDefault();
+                let formData = {};
+                new FormData(form).forEach((value, key) => {
+                    if (!formData[key]) {
+                        formData[key] = [];
+                    }
+                    formData[key].push(value);
+                });
+                localStorage.setItem("surveyData", JSON.stringify(formData));
+                alert("فارم کامیابی سے محفوظ ہوگیا!");
+            });
+        });
+    </script>
+</body>
+</html>
