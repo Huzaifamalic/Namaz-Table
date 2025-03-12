@@ -3,130 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Namaz Tracker</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            text-align: center;
-            margin: 20px;
-        }
-        .container {
-            max-width: 800px;
-            margin: auto;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: center;
-        }
-        th {
-            background-color: gray;
-            color: white;
-        }
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px;
-            background-color:gray;
-            color: white;
-            border-radius: 8px;
-        }
-        .link {
-            text-decoration: none;
-            color: white;
-            font-size: 18px;
-        }
-        input[type="checkbox"] {
-            transform: scale(1.2);
-        }
-        .reset-btn {
-            margin-top: 20px;
-            padding: 10px 15px;
-            background-color: red;
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-    </style>
+    <title>Login & Signup</title>
+    <link rel="stylesheet" href="styles.css">
+   
+
 </head>
 <body>
     <div class="container">
-        <div class="navbar">
-            <h2>نماز  کا ریکارڈ"- <span id="month-year"></span></h2>
-            <a class="link" href="./islamic.html" target="_blank">اسلامی سوالنامہ</a>
+        <div class="form-box">
+            <h2 id="form-title">Login</h2>
+            <form id="auth-form">
+                <div class="input-group">
+                    <input type="email" id="email" placeholder="Email" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="password" placeholder="Password" required>
+                </div>
+                <button type="submit" class="btn">Login</button>
+                <p class="toggle-text">Create account? Sign Up <a href="#" id="toggle-form">Sign Up</a></p>
+            </form>
         </div>
-        <table>
-            <tr>
-               <th>Date</th>
-               <th>فجر</th>
-               <th>ظہر</th>
-               <th>عصر</th>
-               <th>مغرب</th>
-               <th>عشاء</th>
-            </tr>
-            <tbody id="namaz-table"></tbody>
-        </table>
-        <button class="reset-btn" onclick="resetTracker()">Reset Tracker</button>
     </div>
-    
-    <script>
-        let today = new Date();
-        let currentMonth = today.getMonth();
-        let currentYear = today.getFullYear();
-        let monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        document.getElementById("month-year").innerText = `${monthNames[currentMonth]} ${currentYear}`;
-        let daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
-        let tableBody = document.getElementById("namaz-table");
+    <script type="module">
+        // Import Firebase SDKs
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-auth.js";
         
-        function loadTracker() {
-            let savedData = JSON.parse(localStorage.getItem("namazTracker")) || {};
-            for (let i = 1; i <= daysInMonth; i++) {
-                let formattedDate = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
-                let row = `<tr>
-                    <td>${formattedDate}</td>
-                    <td><input type="checkbox" data-date="${formattedDate}" data-namaz="Fajr" ${savedData[formattedDate]?.Fajr ? "checked" : ""}></td>
-                    <td><input type="checkbox" data-date="${formattedDate}" data-namaz="Dhuhr" ${savedData[formattedDate]?.Dhuhr ? "checked" : ""}></td>
-                    <td><input type="checkbox" data-date="${formattedDate}" data-namaz="Asr" ${savedData[formattedDate]?.Asr ? "checked" : ""}></td>
-                    <td><input type="checkbox" data-date="${formattedDate}" data-namaz="Maghrib" ${savedData[formattedDate]?.Maghrib ? "checked" : ""}></td>
-                    <td><input type="checkbox" data-date="${formattedDate}" data-namaz="Isha" ${savedData[formattedDate]?.Isha ? "checked" : ""}></td>
-                </tr>`;
-                tableBody.innerHTML += row;
-            }
-        }
+        // Firebase configuration
+        const firebaseConfig = {
+    apiKey: "AIzaSyCYRmfnq_JnrcdxhP4xrWMu5mMdb6fQjAo",
+    authDomain: "islam-app-6bb2e.firebaseapp.com",
+    projectId: "islam-app-6bb2e",
+    storageBucket: "islam-app-6bb2e.firebasestorage.app",
+    messagingSenderId: "74748834935",
+    appId: "1:74748834935:web:0bd586c92ad0fa6c540272",
+    measurementId: "G-L7ZDP3NWBE"
+  };
         
-        function saveTracker() {
-            let trackerData = {};
-            document.querySelectorAll("input[type='checkbox']").forEach(checkbox => {
-                let date = checkbox.getAttribute("data-date");
-                let namaz = checkbox.getAttribute("data-namaz");
-                if (!trackerData[date]) {
-                    trackerData[date] = {};
-                }
-                trackerData[date][namaz] = checkbox.checked;
-            });
-            localStorage.setItem("namazTracker", JSON.stringify(trackerData));
-        }
-        
-        function resetTracker() {
-            localStorage.removeItem("namazTracker");
-            location.reload();
-        }
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
         
         document.addEventListener("DOMContentLoaded", () => {
-            loadTracker();
-            document.addEventListener("change", saveTracker);
+            const toggleForm = document.getElementById('toggle-form');
+            const formTitle = document.getElementById('form-title');
+            const submitButton = document.querySelector('.btn');
+            const authForm = document.getElementById('auth-form');
+            
+            toggleForm.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (formTitle.innerText === "Login") {
+                    formTitle.innerText = "Sign Up";
+                    submitButton.innerText = "Sign Up";
+                    toggleForm.innerText = "Already have an account? Login";
+                } else {
+                    formTitle.innerText = "Login";
+                    submitButton.innerText = "Login";
+                    toggleForm.innerText = "Create account? Sign Up";
+                }
+            });
+
+            authForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                
+                if (formTitle.innerText === "Sign Up") {
+                    createUserWithEmailAndPassword(auth, email, password)
+                        .then(() => {
+                            alert("Sign Up successful! Please login.");
+                            formTitle.innerText = "Login";
+                            submitButton.innerText = "Login";
+                            toggleForm.innerText = "Don't have an account? Sign Up";
+                        })
+                        .catch(error => alert(error.message));
+                } else {
+                    signInWithEmailAndPassword(auth, email, password)
+                        .then(() => {
+                            alert("Login successful! well come to attendance page.");
+                            window.location.href = "./attendance.html";
+                        })
+                        .catch(error => alert(error.message));
+                }
+            });
         });
     </script>
 </body>

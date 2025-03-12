@@ -1,169 +1,371 @@
 
-
-
 <!DOCTYPE html>
-<html lang="ur">
+<html lang="ur" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>اسلامی سوالنامہ</title>
-    <style>
+
+    <!-- Bootstrap & Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+        <style>
         body {
-            background-color: gray;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 20px;
-            font-family: Arial, sans-serif;
+            font-family: 'Noto Nastaliq Urdu', Arial, sans-serif;
+            background-color: #f8f9fa;
+            text-align: right;
+            direction: rtl;
+            margin: 0;
+            padding: 0;
         }
         .container {
-            max-width: 600px;
-            width: 100%;
-            background-color: white;
+            max-width: 800px;
+            width: 95%;
+            background: white;
             padding: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin: auto;
+        }
+        .navbar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #343a40;
+            color: white;
             border-radius: 8px;
         }
-        h2 {
-            text-align: center;
-            margin-bottom: 16px;
-            color: #333;
+        .form-check {
+            margin-bottom: 10px;
         }
-        fieldset {
-            margin-bottom: 16px;
-            border: none;
-        }
-        legend {
-            font-weight: bold;
-            color: #333;
-        }
-        label {
-            display: block;
-            margin-top: 8px;
-        }
-        textarea {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        button {
-            width: 100%;
-            background-color: #007bff;
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 4px;
+        /* Default Blue */
+        .form-check-input {
             cursor: pointer;
+            transform: scale(1.2);
+            background-color: #0d6efd !important;
+            border-color: #0d6efd !important;
         }
-        button:hover {
-            background-color: #0056b3;
+        /* Checked color to Yellow #FFCA2C */
+        .form-check-input:checked {
+            background-color: #FFCA2C !important;
+            border-color: #FFCA2C !important;
         }
-        a {
-            text-decoration: none;
-            background-color: #333;
-            color: white;
+        .btn-custom {
+            width: 100%;
             padding: 10px;
-            border-radius: 4px;
-            display: inline-block;
-            margin-top: 20px;
-            
-
-        
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            .navbar {
+                flex-direction: column;
+                text-align: center;
+            }
+            .navbar a {
+                margin-top: 10px;
+            }
+        }
+        @media (max-width: 576px) {
+            .btn-custom {
+                padding: 8px;
+                font-size: 14px;
+            }
         }
     </style>
 </head>
 <body>
-   
-    <div class="container">
-        <div class="container-2">
-            <a href="./index.html" class="record-link">نماز کا ریکارڈ</a>
-        </div> 
-        <h2>اسلامی سوالنامہ</h2>
-        <form id="surveyForm">
-            <fieldset>
-                <legend>اتفاقی عمل کی کیفیت کیا ہے؟</legend>
-                <label><input type="radio" name="ittefaq" value="پہلے سے وعدہ"> پہلے سے وعدہ</label>
-                <label><input type="radio" name="ittefaq" value="5% فیصد سے زیادہ"> 5٪ فیصد سے زیادہ</label>
-                <label><input type="radio" name="ittefaq" value="اذکار منصوبہ موجود نہیں"> اذکار منصوبہ موجود نہیں</label>
+    <div class="container mt-4">
+        <!-- Navbar -->
+        <div class="navbar">
+            <h2>📜 اسلامی سوالنامہ</h2>
+            <a class="btn btn-warning text-dark fw-bold" href="./attendance.html">نماز کا ریکارڈ</a>
+        </div>
+
+        <!-- Form -->
+
+        <form id="surveyForm" class="mt-3">
+            <!-- سوالات -->
+            <fieldset class="mb-3">
+                <legend class="fw-bold">حفظ کی کیفیت </legend>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" name="hifz" value="آخری بیس سورتیں">
+                    <label class="form-check-label"> آخری بیس سورتیں  </label>
+                </div>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" name="hifz" value="  اذکارمنسون">
+                    <label class="form-check-label"> اذکارمنسون </label>
+                </div>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" name="hifz" value="ادعیہ ماثوره">
+                    <label class="form-check-label">ادعیہ ماثوره </label>
+                </div>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" name="hifz" value="منتخب نصاب">
+                    <label class="form-check-label">منتخب نصاب </label>
+                </div>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" name="hifz" value="باقی قرآن">
+                    <label class="form-check-label">باقی قرآن</label>
+                </div>
+            </fieldset>
+
+            <fieldset class="mb-3">
+                <legend class="fw-bold">انفاق فی سبیل اللہ کی کیفیت کیا ہے ؟</legend>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" name="ittefaq" value="ما بانه اتفاق جمع کر دیا ">
+                    <label class="form-check-label">ما بانه اتفاق جمع کر دیا ؟</label>
+                </div>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" name="ittefaq" value="پہلے سے زیادہ">
+                    <label class="form-check-label"> پہلے سے زیادہ ؟</label>
+                </div>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" name="ittefaq" value="5فیصد یا 5فیصد سے زیادہ">
+                    <label class="form-check-label">5فیصد یا 5فیصد سے زیادہ</label>
+                </div>
+            </fieldset>
+
+            <fieldset class="mb-3">
+                <legend class="fw-bold">اذکار مسنون واد عیے ما ثوره</legend>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" name="routine" value="زندگی کا معمول بن گئے ہیں">
+                    <label class="form-check-label">زندگی کا معمول بن گئے ہیں </label>
+                </div>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" name="routine" value="کوشش جاری ہے">
+                    <label class="form-check-label">کوشش جاری ہے</label>
+                </div>
+            </fieldset>
+
+            <fieldset class="mb-3">
+                <legend class="fw-bold">اجتماعات میں شرکت</legend>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" name="ijtima" value=" دوران ماہ کیا آپ نظام العمل میں طے شدہ (پشت پردرج ) یا نظم کی طرف سے بلائے مجھے کسی اجتماع یا مہم وغیرہ سے غیر حاضر رہے؟">
+                    <label class="form-check-label"> 
+                        دوران ماہ کیا آپ نظام العمل میں طے شدہ (پشت پردرج ) یا نظم کی 
+                        طرف سے بلائے گئے  کسی اجتماع یا مہم وغیرہ سے غیر حاضر رہے؟</label>
+                </div>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" name="ijtima" value="اگر غیر حاضر رہے تو کیا غیر حاضری کے عذر سے آپ مطمئن تھے">
+                    <label class="form-check-label">اگر غیر حاضر رہے تو کیا غیر حاضری کے عذر سے آپ مطمئن تھے؟</label>
+                </div>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" name="ijtima" value="کیا غیر حاضری کے لیے اعظم بالا سے پیشگی اجازت لی تھی ؟ ">
+                    <label class="form-check-label">کیا غیر حاضری کے لیے نظم بالا سے پیشگی اجازت لی تھی ؟</label>
+                </div>
+            </fieldset>
+
+
+            <fieldset class="mb-3">
+                <legend class="fw-bold">دوران ماہ مطالعہ اور سماعت کی کیفیت</legend>
+            
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" name="study" value="امیر محترم کا ہفتہ وار خطاب جمعہ سنا/ پڑھا  ہے؟">
+                    <label class="form-check-label">امیر محترم کا ہفتہ وار خطاب جمعہ سنا/ پڑھا  ہے؟</label>
+                </div>
+            
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" name="study" value="نداۓ خلافت زیر مطالعہ رہاہے؟">
+                    <label class="form-check-label">نداۓ خلافت زیر مطالعہ رہاہے؟</label>
+                </div>
+            
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" name="study" value="مثالی کا مطالعہ کیا ہے">
+                    <label class="form-check-label">میثاق کا مطالعہ کیا ہے؟</label>
+                </div>
+            
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" name="study" value="نصاب کے مطالعہ و سماعت میں پیش رفت یا بہتری ہوئی">
+                    <label class="form-check-label">نصاب کے مطالعہ/  سماعت میں پیش رفت یاددہرائ ہوئی؟</label>
+                </div>
+            
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" name="study" value="کیا کسی مجموعہ حدیث اور کتب سیرت زیر مطالعہ رہی">
+                    <label class="form-check-label">کیا کسی مجموعہ حدیث اور کتب سیرت زیر مطالعہ رہی؟</label>
+                </div>
+            
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" name="study" value="کیا دیگر دینی موضوعات زیر مطالعہ و سماعت رہے">
+                    <label class="form-check-label">کیا دیگر دینی موضوعات زیر مطالعہ/ و سماعت رہے؟</label>
+                </div>
+            
+            </fieldset>
+
+
+            <fieldset class="mb-3">
+                <legend class="fw-bold">مراقب (درج ذیل پہلوؤں سے اپنے ظاہر و باطن کا جائزہ لے رہے ہیں)</legend>
+            
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" name="self_assessment" value="اصلاح نیت، اخلاص، رضا سے الہی، آخرت کی نجات">
+                    <label class="form-check-label">اصلاح نیت، اخلاص، رضا ۓ الہی، آخرت کی نجات</label>
+                </div>
+            
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" name="self_assessment" value="باطنی بیماریوں کا علاج (نفاق، تکبر، غفلت، حسد، کینہ، بغض و  عداوت)">
+                    <label class="form-check-label">باطنی بیماریوں کا علاج (نفاق، تکبر، غفلت، حسد، کینہ، بغض و  عداوت)</label>
+                </div>
+            
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" name="self_assessment" value="عبادات میں فرض و واجبات کا اہتمام">
+                    <label class="form-check-label">عبادات میں فرض و واجبات کا اہتمام</label>
+                </div>
+            
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" name="self_assessment" value="معاملات و اخلاقیات (حقوق العباد)">
+                    <label class="form-check-label">معاملات و اخلاقیات (حقوق العباد)</label>
+                </div>
+            
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" name="self_assessment" value="معصیت میں حرام و مکروہات سے اجتناب">
+                    <label class="form-check-label">معیشت میں حرام و مکروہات سے اجتناب</label>
+                </div>
+            
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" name="self_assessment" value="معاشرت میں اتباع سنت (شرعی پردہ، گفتگو، طہارت)، ناظر و بدعات سے اجتناب، معیار زندگی میں سادگی، قناعت">
+                    <label class="form-check-label">معاشرت میں اتباع سنت (شرعی پردہ، گفتگو، طہارت)، ناظر و بدعات سے اجتناب، معیار زندگی میں سادگی، قناعت</label>
+                </div>
+            
             </fieldset>
             
-            <fieldset>
-                <legend>زندگی کے معمولات کیسے ہیں؟</legend>
-                <label><input type="checkbox" name="routine" value="روحانی جاری ہے"> روحانی جاری ہے</label>
+            <fieldset class="mb-3">
+                <legend class="fw-bold mt-3">ذاتی انفرادی و دَعوتی کام (الاقرب فالا قرب / الدین النصیحہ)</legend>
+            
+                <div class="mb-2">
+                    <label class="fw-bold">کیا کچھ احباب آپ کے زیر دعوت ہیں؟</label>
+                    <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" name="inv" value="(جی ہاں) کیا کچھ احباب آپ کے زیر دعوت ہیں">
+                        <label class="form-check-label">جی ہاں</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" name="inv" value="(جی نہیں)کیا کچھ احباب آپ کے زیر دعوت ہیں">
+                        <label class="form-check-label">جی نہیں</label>
+                    </div>
+                </div>
+            
+                <div class="mb-2">
+                    <label class="fw-bold">ان کو دعوت میں پیش رفت ہو رہی ہے؟</label>
+                    <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" name="progress" value="ان کو دعوت میں پیش رفت ہو رہی ہے؟جی ہاں ">
+                        <label class="form-check-label">جی ہاں</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" name="progress" value="ان کو دعوت میں پیش رفت ہو رہی ہے؟ جی نہیں  ">
+                        <label class="form-check-label">جی نہیں</label>
+                    </div>
+                </div>
+            
+                <div class="mb-2">
+                    <label class="fw-bold">زیر دعوت احباب میں اضافہ ہو رہا ہے؟</label>
+                    <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" name="increase" value="  زیر دعوت احباب میں اضافہ ہو رہا ہے؟ جی ہاں">
+                        <label class="form-check-label">جی ہاں</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" name="increase" value=" زیر دعوت احباب میں اضافہ ہو رہا ہے؟ جی نہیں">
+                        <label class="form-check-label">جی نہیں</label>
+                    </div>
+                </div>
+            
             </fieldset>
             
-            <fieldset>
-                <legend>اجتماع میں شرکت</legend>
-                <label><input type="radio" name="ijtima" value="جی ہاں"> جی ہاں</label>
-                <label><input type="radio" name="ijtima" value="نہیں"> نہیں</label>
+             <fieldset class="mb-3">
+                <legend class="fw-bold mt-3">اگر کسی رفیق کے ساتھ قرض حسنہ/ کا روباری لین دین کیا ہے تو کیا ؟ </legend>
+            
+                <div class="mb-2">
+                    <label class="fw-bold">تحریری شکل میں کیا ؟</label>
+                    <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" name="invitation" value="اگر کسی رفیق کے ساتھ قرض حسنہ/ کا روباری لین دین کیا ہے تو کیا ؟ جی ہاں ">
+                        <label class="form-check-label">جی ہاں</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" name="invitation" value="اگر کسی رفیق کے ساتھ قرض حسنہ/ کا روباری لین دین کیا ہے تو کیا ؟ جی نہیں">
+                        <label class="form-check-label">جی نہیں</label>
+                    </div>
+                </div>
+            
+                <div class="mb-2">
+                    <label class="fw-bold">اس تحریر پر دو گواہ ٹھراۓ  ؟ </label>
+                    <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" name="pro" value=" اس تحریر پر دو گواہ ٹھراۓ ؟ جی ہاں">
+                        <label class="form-check-label">جی ہاں</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" name="pro" value=" اس تحریر پر دو گواہ پھبر ائے ؟ جی نہیں">
+                        <label class="form-check-label">جی نہیں</label>
+                    </div>
+                </div>
+            
+                <div class="mb-2">
+                    <label class="fw-bold">یہ گواہ نظم بالا میں سے ہیں ؟ </label>
+                    <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" name="inc" value=" یہ گواہ نظم بالا میں سے ہیں ؟ جی ہاں">
+                        <label class="form-check-label">جی ہاں</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" name="inc" value="یہ گواہ نظم بالا میں سے ہیں ؟ جی نہیں">
+                        <label class="form-check-label">جی نہیں</label>
+                    </div>
+                </div>
+            
             </fieldset>
             
-            <fieldset>
-                <legend>دوران ماہ دعا و عبادات کی کیفیت</legend>
-                <label><input type="checkbox" name="ibadat" value="قرآن کی تلاوت"> قرآن کی تلاوت</label>
-                <label><input type="checkbox" name="ibadat" value="نماز کے خلاف رعایت"> نماز کے خلاف رعایت</label>
-                <label><input type="checkbox" name="ibadat" value="نصاب کی تکمیل"> نصاب کی تکمیل</label>
+            <fieldset class="mb-3">
+                <legend class="fw-bold">اضافی رائے یا مشورہ</legend>
+                <textarea class="form-control" name="feedback" rows="4" placeholder="اپنی رائے لکھیں..."></textarea>
             </fieldset>
-            
-            <fieldset>
-                <legend>ذاتی اصلاح کے لیے کون سا طریقہ کار اپنایا؟</legend>
-                <label><input type="checkbox" name="self_improvement" value="نماز و اذکار"> نماز و اذکار</label>
-                <label><input type="checkbox" name="self_improvement" value="معاشرتی معاملات کی بہتری"> معاشرتی معاملات کی بہتری</label>
-                <label><input type="checkbox" name="self_improvement" value="دعوت و تبلیغ"> دعوت و تبلیغ</label>
-            </fieldset>
-            
-            <fieldset>
-                <legend>مشکلات کے حوالے سے رہنمائی حاصل کرنا چاہتے ہیں؟</legend>
-                <label><input type="radio" name="mushkilat" value="جی ہاں"> جی ہاں</label>
-                <label><input type="radio" name="mushkilat" value="نہیں"> نہیں</label>
-            </fieldset>
-            
-            <fieldset>
-                <legend>اضافی رائے یا مشورہ</legend>
-                <textarea name="feedback" rows="4" placeholder="اپنی رائے لکھیں..."></textarea>
-            </fieldset>
-            
-            <button type="submit">فارم جمع کریں</button>
         </form>
+
+        <!-- Download CSV Button -->
+        <button class="btn btn-primary btn-custom mt-3" onclick="downloadCSV()">📥 Download CSV</button>
+        
     </div>
-    
+
+    <!-- JavaScript -->
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const form = document.getElementById("surveyForm");
-            
-            // Load saved data from localStorage
-            const savedData = JSON.parse(localStorage.getItem("surveyData")) || {};
-            Object.keys(savedData).forEach(key => {
-                const inputElements = form.elements[key];
-                if (inputElements) {
-                    if (inputElements.length) {
-                        Array.from(inputElements).forEach(input => {
-                            if (input.type === "checkbox" || input.type === "radio") {
-                                input.checked = savedData[key].includes(input.value);
-                            }
-                        });
-                    } else {
-                        inputElements.value = savedData[key];
-                    }
-                }
-            });
-            
-            // Save form data to localStorage
-            form.addEventListener("submit", function (e) {
-                e.preventDefault();
-                let formData = {};
-                new FormData(form).forEach((value, key) => {
-                    if (!formData[key]) {
-                        formData[key] = [];
-                    }
-                    formData[key].push(value);
+        function getFormData() {
+            let data = [
+                ["سوال", "جواب"]
+            ];
+
+            document.querySelectorAll("fieldset").forEach(fieldset => {
+                let question = fieldset.querySelector("legend").innerText;
+                let answers = [];
+                fieldset.querySelectorAll("input:checked").forEach(input => {
+                    answers.push(input.value);
                 });
-                localStorage.setItem("surveyData", JSON.stringify(formData));
-                alert("فارم کامیابی سے محفوظ ہوگیا!");
+                let textarea = fieldset.querySelector("textarea");
+                if (textarea && textarea.value) {
+                    answers.push(textarea.value);
+                }
+                data.push([question, answers.join(" / ")]);
             });
-        });
+
+            return data;
+        }
+
+        function downloadCSV() {
+            let csvContent = "data:text/csv;charset=utf-8,\uFEFF";
+            let data = getFormData();
+
+            data.forEach(row => {
+                csvContent += row.join(",") + "\n";
+            });
+
+            let encodedUri = encodeURI(csvContent);
+            let link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "islamic_survey.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
     </script>
+    <script src="attendance.js" type="module"></script>
 </body>
 </html>
