@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Signup</title>
+    <link rel="stylesheet" href="styles.css">
+   
+
+</head>
+<body>
+    <div class="container">
+        <div class="form-box">
+            <h2 id="form-title">Login</h2>
+            <form id="auth-form">
+                <div class="input-group">
+                    <input type="email" id="email" placeholder="Email" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="password" placeholder="Password" required>
+                </div>
+                <button type="submit" class="btn">Login</button>
+                <p class="toggle-text">Create account? Sign Up <a href="#" id="toggle-form">Sign Up</a></p>
+            </form>
+        </div>
+    </div>
+    <script type="module">
+        // Import Firebase SDKs
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-auth.js";
+        
+        // Firebase configuration
+        const firebaseConfig = {
+    apiKey: "AIzaSyCYRmfnq_JnrcdxhP4xrWMu5mMdb6fQjAo",
+    authDomain: "islam-app-6bb2e.firebaseapp.com",
+    projectId: "islam-app-6bb2e",
+    storageBucket: "islam-app-6bb2e.firebasestorage.app",
+    messagingSenderId: "74748834935",
+    appId: "1:74748834935:web:0bd586c92ad0fa6c540272",
+    measurementId: "G-L7ZDP3NWBE"
+  };
+        
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        
+        document.addEventListener("DOMContentLoaded", () => {
+            const toggleForm = document.getElementById('toggle-form');
+            const formTitle = document.getElementById('form-title');
+            const submitButton = document.querySelector('.btn');
+            const authForm = document.getElementById('auth-form');
+            
+            toggleForm.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (formTitle.innerText === "Login") {
+                    formTitle.innerText = "Sign Up";
+                    submitButton.innerText = "Sign Up";
+                    toggleForm.innerText = "Already have an account? Login";
+                } else {
+                    formTitle.innerText = "Login";
+                    submitButton.innerText = "Login";
+                    toggleForm.innerText = "Create account? Sign Up";
+                }
+            });
+
+            authForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                
+                if (formTitle.innerText === "Sign Up") {
+                    createUserWithEmailAndPassword(auth, email, password)
+                        .then(() => {
+                            alert("Sign Up successful! Please login.");
+                            formTitle.innerText = "Login";
+                            submitButton.innerText = "Login";
+                            toggleForm.innerText = "Don't have an account? Sign Up";
+                        })
+                        .catch(error => alert(error.message));
+                } else {
+                    signInWithEmailAndPassword(auth, email, password)
+                        .then(() => {
+                            alert("Login successful! well come to attendance page.");
+                            window.location.href = "./attendance.html";
+                        })
+                        .catch(error => alert(error.message));
+                }
+            });
+        });
+    </script>
+</body>
+</html>
