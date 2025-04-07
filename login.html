@@ -5,7 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login & Signup</title>
     <link rel="stylesheet" href="styles.css">
-   
+    <!-- <link rel="manifest" href="manifest.json"> -->
+
+    <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(to right, #6a11cb, #2575fc);
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      width: 350px;
+      padding: 50px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    .form-box h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+    .input-group {
+      margin: 10px 0;
+    }
+    .input-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .btn {
+      width: 100%;
+      padding: 10px;
+      background: #2575fc;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      background: #6a11cb;
+    }
+    .toggle-text {
+      margin-top: 10px;
+      font-size: 14px;
+    }
+    .toggle-text a {
+      color: #2575fc;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
 
 </head>
 <body>
@@ -81,12 +135,13 @@
                     signInWithEmailAndPassword(auth, email, password)
                         .then(() => {
                             alert("Login successful! well come to attendance page.");
-                            window.location.href = "./attendance.html";
+                            window.location.href = "./attendance.html"; // Redirect to attendance page
                         })
                         .catch(error => alert(error.message));
                 }
             });
         });
     </script>
+        
 </body>
 </html>
